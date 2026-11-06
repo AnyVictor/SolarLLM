@@ -1,3 +1,5 @@
+![Solar LLM Architecture](architecture/Solar%20LLM%20Architecture.png)
+
 Our Summary structure (max. 1,000 words)
 
 1. Product description, 
