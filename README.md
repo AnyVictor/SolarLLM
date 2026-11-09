@@ -63,13 +63,11 @@ _TODO: what this flow covers._
 
 ![Power monitoring](.github/assets/flow-3-power-monitoring.png)
 
-_TODO: what this flow covers._
-
-1. _TODO_
-2. _TODO_
-3. _TODO_
-4. _TODO_
-5. _TODO_
+1. The solar panel provides energi to the GPU server
+2. The microcontroller with OpenDTU firmware reads how much power is available
+3. It publishes the power level to the broker
+4. The server subscribes to the publiusher so that it always knows the current power level
+5. Based on the ammount of power, the server pauses or resumes the message queue
 
 ### Energy Supply
 
