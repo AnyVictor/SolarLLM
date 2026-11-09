@@ -1,35 +1,93 @@
-Architecture
+# Solar LLM
 
-![Solar LLM Architecture](architecture/Solar%20LLM%20Architecture.png)
+## Contents
 
-Our Summary structure (max. 1,000 words)
+- [Architecture](#architecture)
+- [Our Summary structure (max. 1,000 words) [Remove after]](#our-summary-structure-max-1000-words-remove-after)
+  - [Description](#description)
+  - [Components](#components)
+  - [Communication Flow](#communication-flow)
+    - [1. Reaching the server](#1-reaching-the-server)
+    - [2. Handling a chat request](#2-handling-a-chat-request)
+    - [3. Power monitoring](#3-power-monitoring)
+  - [Energy Supply](#energy-supply)
 
-1. Product description: 
-What Solar LLM is, who it’s for (students at our university), and what problem it solves.
-- Providing free AI usage of open-weights models (for example Llama, Mistral, or Qwen) for students at CODE University.
-- Using renewable energy provided by the solar panel on campus to power the GPU server that runs the open-weights models.
-- SolarLLM is a proof of concept for decentralized AI that dynamically adapts to renewable energy availability rather than relying on constant energy from fossil fuels.
-- The goal is cheaper and more accessible AI (AI for the world).
+---
 
-2. Architecture components:
-- UI: Users can access the service from web browsers and mobile apps.
-- DNS: DNS translates human-friendly domain names (like solarllm.com) into computer-friendly numerical IP addresses (like 192.0.2.1).
-- Server: The server handles requests from users, while reading, writing, and updating the database. It sends requests to the queue, receives responses from the GPU server, and subscribes to solar status data from the broker to decide when queued requests are released.
-- Database: Stores user data such as IP addresses, emails, names, activity, etc.
-- Message queue: Every user request is added to the queue when it is created. Requests are only sent to the GPU server when solar power is sufficient.
-- GPU server: Uses open-weight LLMs to avoid API costs. Users can choose between different models in the UI.
-- Solar panel: The plan is to move our solar panel on the roof of the Delta campus. It powers the GPU server.
-- Microcontroller (OpenDTU): Collects status data from the solar inverter (e.g. current power in W and energy generated in kWh) and publishes it to the MQTT broker.
-- MQTT broker: Receives solar status data published by the microcontroller and forwards it to the server, which subscribes to it.
+## Architecture
 
-3. Communication flow: 
-How data moves through the system
-How the queue holds requests when power is low and releases them when power is good enough.
+![Solar LLM Architecture](.github/assets/solar-llm-architecture.png)
 
-4. Energy supply:
-How the solar panel powers the GPU server, and what happens when there isn’t enough sun.
+---
+
+## Our Summary structure (max. 1,000 words) [Remove after]
+
+### Description
+SolarLLM is a small student project: a free chatbot for students at CODE University. It runs open-weights models (for example Llama, Mistral, or Qwen) on our own GPU server, so there are no API costs. The server is powered by the solar panel on campus, which means it is not always available and will not be as fast as commercial services. When there isn't enough power, requests wait in a queue until there is. We want to find out how far a setup like this can go, and whether it can offer students cheaper and more accessible AI.
+
+### Components
+
+| Component | Description |
+| --- | --- |
+| **UI** | Users can access the service from web browsers and mobile apps. |
+| **DNS** | DNS translates human-friendly domain names (like solarllm.com) into IP addresses. |
+| **Server** | The server handles requests from users, while reading, writing, and updating the database. It sends requests to the queue, receives responses from the GPU server, and subscribes to solar status data from the broker to decide when queued requests are released. |
+| **Database** | Stores user data such as IP addresses, emails, names, conversations, etc. |
+| **Message queue** | Every user request (message to the LLM) is added to the queue when it is created. Requests are only sent to the GPU server when solar power is sufficient. |
+| **GPU server** | Uses open-weight LLMs to avoid API costs. ⚠️ **To discuss:** whether users can choose between different models in the UI. Every extra loaded model uses GPU memory that would otherwise hold conversations (KV cache), so fewer users can be served at the same time. |
+| **Solar panel** | Mounted on the roof of the Delta campus. Generates the renewable electricity that powers the GPU server. |
+| **Microcontroller (OpenDTU)** | Collects status data from the solar inverter (e.g. current power in W and energy generated in kWh) and publishes it to the MQTT broker. |
+| **MQTT broker** | Receives solar status data published by the microcontroller and forwards it to the server, which subscribes to it. |
+
+### Communication Flow
+
+> *How data moves through the system*
+>
+> *How the queue holds requests when power is low and releases them when power is good enough.*
+
+_TODO: short intro explaining that the system has three flows and how they relate to each other._
+
+#### 1. Reaching the server
+
+![Reaching the server](.github/assets/flow-1-reaching-the-server.png)
+
+_TODO: what this flow covers._
+
+1. **solarllm.com** — _TODO_
+2. **IP: 112.x.x.x** — _TODO_
+3. **HTTPS request** — _TODO_
+4. **JSON response** — _TODO_
+
+#### 2. Handling a chat request
+
+![Handling a chat request](.github/assets/flow-2-handling-a-chat-request.png)
+
+_TODO: what this flow covers._
+
+1. **read / write** — _TODO_
+2. **return data** — _TODO_
+3. **enqueue** — _TODO_
+4. **power OK** — _TODO_
+5. **Responses** — _TODO_
+
+#### 3. Power monitoring
+
+![Power monitoring](.github/assets/flow-3-power-monitoring.png)
+
+_TODO: what this flow covers._
+
+1. **Power** — _TODO_
+2. **production data** — _TODO_
+3. **publishes power level** — _TODO_
+4. **subscribes** — _TODO_
+5. **pause / resume** — _TODO_
+
+### Energy Supply
+
+> *How the solar panel powers the GPU server, and what happens when there isn’t enough sun.*
+
 - The GPU server relies directly on the power generated by the solar panel and operates only when sufficient power is available.
 - During periods of insufficient sunlight (nights or weather conditions):
-  - Low power priority: when there isn't enough sunlight to power the GPU server, the backend server can still accept student prompts and queue them.
-  - Dynamic model switching: during low sun exposure the orchestrator can route prompts to smaller LLMs.
-  - Grid Fallback or energy storage: In case of no sun exposure power could be also sourced from the energy grid or during peak sun hours the energy can be stored in a battery on campus.
+  - **Low power priority:** when there isn't enough sunlight to power the GPU server, the backend server can still accept student prompts and queue them.
+  - **Dynamic model switching:** during low sun exposure the orchestrator can route prompts to smaller LLMs.
+  - **Grid Fallback or energy storage:** In case of no sun exposure power could be also sourced from the energy grid or during peak sun hours the energy can be stored in a battery on campus.
