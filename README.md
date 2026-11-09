@@ -20,3 +20,8 @@ How the queue holds requests when power is low and releases them when power is g
 
 4. Energy supply,
 How the solar panel powers the GPU server, and what happens when there isn’t enough sun.
+- The GPU server is directly tied to the generated power from the solar paneland can only run when there is enough power
+- For when there isn't enough sun (at nights or on cloudy days):
+  - low power priority: when there isn't enough to power the GPU server, the backend server can still accpet student prompts and queue them
+  - Dynamic model switching: during low sun exposure the orchestrator can route prompts to smaller LLMs
+  - Grid Fallback or energy storage: In case of no sun exposure power could be also sourced from the energy grid or during peak sun hours the energy can be stored in a battery on campus 
