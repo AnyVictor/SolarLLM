@@ -1,16 +1,8 @@
 # Solar LLM
 
-## Contents
+## Description
 
-- [Architecture](#architecture)
-- [Our Summary structure (max. 1,000 words) [Remove after]](#our-summary-structure-max-1000-words-remove-after)
-  - [Description](#description)
-  - [Components](#components)
-  - [Communication Flow](#communication-flow)
-    - [1. Reaching the server](#1-reaching-the-server)
-    - [2. Handling a chat request](#2-handling-a-chat-request)
-    - [3. Power monitoring](#3-power-monitoring)
-  - [Energy Supply](#energy-supply)
+SolarLLM is a small student project: a free chatbot for students at CODE University. It runs open-weights models (for example Llama, Mistral, or Qwen) on our own GPU server, so there are no API costs. The server is powered by the solar panel on campus, which means it is not always available and will not be as fast as commercial services. When there isn't enough power, requests wait in a queue until there is. We want to find out how far a setup like this can go, and whether it can offer students cheaper and more accessible AI.
 
 ---
 
@@ -18,12 +10,9 @@
 
 ![Solar LLM Architecture](.github/assets/solar-llm-architecture.png)
 
+This is the full system. The three flows under [Communication Flow](#communication-flow) are zoomed-in views of this diagram.
+
 ---
-
-## Our Summary structure (max. 1,000 words) [Remove after]
-
-### Description
-SolarLLM is a small student project: a free chatbot for students at CODE University. It runs open-weights models (for example Llama, Mistral, or Qwen) on our own GPU server, so there are no API costs. The server is powered by the solar panel on campus, which means it is not always available and will not be as fast as commercial services. When there isn't enough power, requests wait in a queue until there is. We want to find out how far a setup like this can go, and whether it can offer students cheaper and more accessible AI.
 
 ### Components
 
@@ -31,7 +20,7 @@ SolarLLM is a small student project: a free chatbot for students at CODE Univers
 | --- | --- |
 | **UI** | Users can access the service from web browsers and mobile apps. |
 | **DNS** | DNS translates human-friendly domain names (like solarllm.com) into IP addresses. |
-| **Server** | The server handles requests from users, while reading, writing, and updating the database. It sends requests to the queue, receives responses from the GPU server, and subscribes to solar status data from the broker to decide when queued requests are released. |
+| **Server** | The server (also called the backend server or orchestrator, because it coordinates the other components) handles requests from users, while reading, writing, and updating the database. It sends requests to the queue, receives responses from the GPU server, and subscribes to solar status data from the broker to decide when queued requests are released. |
 | **Database** | Stores user data such as IP addresses, emails, names, conversations, etc. |
 | **Message queue** | Every user request (message to the LLM) is added to the queue when it is created. Requests are only sent to the GPU server when solar power is sufficient. |
 | **GPU server** | Uses open-weight LLMs to avoid API costs. ⚠️ **To discuss:** whether users can choose between different models in the UI. Every extra loaded model uses GPU memory that would otherwise hold conversations (KV cache), so fewer users can be served at the same time. |
@@ -53,10 +42,10 @@ _TODO: short intro explaining that the system has three flows and how they relat
 
 _TODO: what this flow covers._
 
-1. **solarllm.com** — _TODO_
-2. **IP: 112.x.x.x** — _TODO_
-3. **HTTPS request** — _TODO_
-4. **JSON response** — _TODO_
+1. _TODO_
+2. _TODO_
+3. _TODO_
+4. _TODO_
 
 #### 2. Handling a chat request
 
@@ -64,11 +53,11 @@ _TODO: what this flow covers._
 
 _TODO: what this flow covers._
 
-1. **read / write** — _TODO_
-2. **return data** — _TODO_
-3. **enqueue** — _TODO_
-4. **power OK** — _TODO_
-5. **Responses** — _TODO_
+1. _TODO_
+2. _TODO_
+3. _TODO_
+4. _TODO_ See [3. Power monitoring](#3-power-monitoring) for how this decision is made.
+5. _TODO_
 
 #### 3. Power monitoring
 
@@ -76,11 +65,11 @@ _TODO: what this flow covers._
 
 _TODO: what this flow covers._
 
-1. **Power** — _TODO_
-2. **production data** — _TODO_
-3. **publishes power level** — _TODO_
-4. **subscribes** — _TODO_
-5. **pause / resume** — _TODO_
+1. _TODO_
+2. _TODO_
+3. _TODO_
+4. _TODO_
+5. _TODO_
 
 ### Energy Supply
 
