@@ -12,7 +12,15 @@ What Solar LLM is, who it’s for (students at our university), and what problem
 - The goal is cheap and accessible AI (AI for the world)
 
 2. Architecture components,
-A short explanation of each part of the diagram: UI, DNS, server, database, message queue, GPU server, solar panel, microcontroller (OpenDTU) and MQTT broker. One or two sentences each on what it does.
+- UI: Users can access the service from web browsers and mobile apps.
+- DNS: DNS translates human-friendly domain names (like solarllm.com) into computer-friendly numerical IP addresses (like 192.0.2.1).
+- Server: The server handles requests from users and reads, writes, and updates the database. It sends requests to the queue, receives responses from the GPU server, and subscribes to solar status data from the broker to decide when queued requests are released.
+- Database: Stores user data such as IP addresses, emails, names, and activity.
+- Message queue: Every user request is added to the queue when it is created. Requests are only sent to the GPU server when solar power is sufficient.
+- GPU server: Uses open-weight LLMs to avoid API costs. Users can choose between different models in the UI.
+- Solar panel: The plan is to install our solar panel on the roof of the Delta campus. It powers the GPU server.
+- Microcontroller (OpenDTU): Collects status data from the solar inverter (e.g. current power in W and energy generated in kWh) and publishes it to the MQTT broker.
+- MQTT broker: Receives solar status data published by the microcontroller and forwards it to the server, which subscribes to it.
 
 3. Communication flow, 
 How data moves through the system
