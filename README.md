@@ -40,12 +40,10 @@ _TODO: short intro explaining that the system has three flows and how they relat
 
 ![Reaching the server](.github/assets/flow-1-reaching-the-server.png)
 
-_TODO: what this flow covers._
-
-1. _TODO_
-2. _TODO_
-3. _TODO_
-4. _TODO_
+1. Users access the app through its domain URL (e.g. solarllm.com).
+2. DNS translates the domain into the server’s IP address, so the user’s browser knows where to send requests.
+3. The browser sends requests to the server over HTTPS (e.g. GET to load data, POST to send a prompt).
+4. The server sends data back as a JSON response, and the UI displays it to the user.
 
 #### 2. Handling a chat request
 
