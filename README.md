@@ -23,7 +23,7 @@ This is the full system. The three flows under [Communication Flow](#communicati
 | **Server** | The server (also called the backend server or orchestrator, because it coordinates the other components) handles requests from users, while reading, writing, and updating the database. It sends requests to the queue, receives responses from the GPU server, and subscribes to solar status data from the broker to decide when queued requests are released. |
 | **Database** | Stores user data such as IP addresses, emails, names, conversations, etc. |
 | **Message queue** | Every user request (message to the LLM) is added to the queue when it is created. Requests are only sent to the GPU server when solar power is sufficient. |
-| **GPU server** | Uses open-weight LLMs to avoid API costs. ⚠️ **To discuss:** whether users can choose between different models in the UI. Every extra loaded model uses GPU memory that would otherwise hold conversations (KV cache), so fewer users can be served at the same time. |
+| **GPU server** | Uses open-weight LLMs to avoid API costs.  |
 | **Solar panel** | Mounted on the roof of the Delta campus. Generates the renewable electricity that powers the GPU server. |
 | **Microcontroller (OpenDTU)** | Collects status data from the solar inverter (e.g. current power in W and energy generated in kWh) and publishes it to the MQTT broker. |
 | **MQTT broker** | Receives solar status data published by the microcontroller and forwards it to the server, which subscribes to it. |
