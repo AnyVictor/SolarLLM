@@ -23,7 +23,7 @@ This is the full system. The three flows under [Communication Flow](#communicati
 | **Server** | The server (also called the backend server or orchestrator, because it coordinates the other components) handles requests from users, while reading, writing, and updating the database. It sends requests to the queue, receives responses from the GPU server, and subscribes to solar status data from the broker to decide when queued requests are released. |
 | **Database** | Stores user data such as IP addresses, emails, names, conversations, etc. |
 | **Message queue** | Every user request (message to the LLM) is added to the queue when it is created. Requests are only sent to the GPU server when solar power is sufficient. |
-| **GPU server** | Uses open-weight LLMs to avoid API costs. ⚠️ **To discuss:** whether users can choose between different models in the UI. Every extra loaded model uses GPU memory that would otherwise hold conversations (KV cache), so fewer users can be served at the same time. |
+| **GPU server** | Uses open-weight LLMs to avoid API costs.  |
 | **Solar panel** | Mounted on the roof of the Delta campus. Generates the renewable electricity that powers the GPU server. |
 | **Microcontroller (OpenDTU)** | Collects status data from the solar inverter (e.g. current power in W and energy generated in kWh) and publishes it to the MQTT broker. |
 | **MQTT broker** | Receives solar status data published by the microcontroller and forwards it to the server, which subscribes to it. |
@@ -40,13 +40,10 @@ _TODO: short intro explaining that the system has three flows and how they relat
 
 ![Reaching the server](.github/assets/flow-1-reaching-the-server.png)
 
-
-_TODO: [Dima will take care of this] what this flow covers._
-
-1. _TODO_
-2. _TODO_
-3. _TODO_
-4. _TODO_
+1. Users access the app through its domain URL (solarllm.com).
+2. DNS translates the domain into the server’s IP address, so the user’s browser knows where to send requests.
+3. The browser sends requests to the server over HTTPS (e.g. GET to load data, POST to send a prompt).
+4. The server sends data back as a JSON response, and the UI displays it to the user.
 
 #### 2. Handling a chat request
 
