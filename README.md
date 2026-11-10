@@ -30,11 +30,13 @@ This is the full system. The three flows under [Communication Flow](#communicati
 
 ### Communication Flow
 
-> *How data moves through the system*
->
-> *How the queue holds requests when power is low and releases them when power is good enough.*
+The system architecture breaks down into three interconnected flows that keep user requests aligned with available green energy.
 
-_TODO: short intro explaining that the system has three flows and how they relate to each other._
+Flow 1 covers network ingress, detailing how a user client resolves the domain and connects to the backend server.
+
+Flow 2 tracks the lifecycle of a prompt, showing how requests are saved, queued, processed by the GPU, and returned to the client.   
+
+Flow 3 operates continuously in the background, measuring solar production from the panel. It directly dictates the state of Flow 2, letting queued prompts pass to the GPU when power is high enough, or pausing the queue during low light until solar energy recovers.   
 
 #### 1. Reaching the server
 
