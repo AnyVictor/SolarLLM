@@ -40,7 +40,8 @@ _TODO: short intro explaining that the system has three flows and how they relat
 
 ![Reaching the server](.github/assets/flow-1-reaching-the-server.png)
 
-_TODO: what this flow covers._
+
+_TODO: [Dima will take care of this] what this flow covers._
 
 1. _TODO_
 2. _TODO_
