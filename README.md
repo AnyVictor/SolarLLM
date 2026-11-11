@@ -30,11 +30,15 @@ This is the full system. The three flows under [Communication Flow](#communicati
 
 ### Communication Flow
 
-> *How data moves through the system*
->
-> *How the queue holds requests when power is low and releases them when power is good enough.*
+The system architecture breaks down into three interconnected flows that keep user requests aligned with available green energy.
 
-_TODO: short intro explaining that the system has three flows and how they relate to each other._
+Flow 1 covers network ingress, detailing how a user client resolves the domain and connects to the backend server.
+
+Flow 2 tracks the lifecycle of a prompt, showing how requests are saved, queued, processed by the GPU, and returned to the client.   
+
+- Flow 1: Covers network ingress, detailing how a user client resolves the domain and connects to the backend server.
+- Flow 2: Tracks the lifecycle of a prompt, showing how requests are saved, queued, processed by the GPU, and returned to the client.
+- Flow 3: Shows how solar production of the solar panel is tracked and updated. It directly dictates the state of Flow 2, letting queued prompts pass to the GPU when power is high enough, or pausing the queue during low light until solar energy recovers.   
 
 #### 1. Reaching the server
 
@@ -61,7 +65,7 @@ _TODO: what this flow covers._
 
 ![Power monitoring](.github/assets/flow-3-power-monitoring.png)
 
-1. The solar panel provides energi to the GPU server
+1. The solar panel provides energy to the GPU server
 2. The microcontroller with OpenDTU firmware reads how much power is available
 3. It publishes the power level to the broker
 4. The server subscribes to the publiusher so that it always knows the current power level
