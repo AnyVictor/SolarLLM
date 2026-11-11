@@ -48,13 +48,13 @@ The system architecture breaks down into three connected flows that keep user re
 
 ![Handling a chat request](.github/assets/flow-2-handling-a-chat-request.png)
 
-_TODO: what this flow covers._
+Chat requests are processed by the LLM located on the GPU server and powered by the solar panels. To raise awareness of the energy consumption of LLMs, the local LLM is powered by solar energy on campus and the messages only receive a response when the stored solar energy exceeds a specific threshold.
 
-1. _TODO_
-2. _TODO_
-3. _TODO_
-4. _TODO_ See [3. Power monitoring](#3-power-monitoring) for how this decision is made.
-5. _TODO_
+1. The server reads data from and writes data to the database.
+2. The database returns the data to the server.
+3. Every message created by users goes into the queue.
+4. The message is only passed to the LLM on the GPU server when the stored solar energy reaches the threshold.
+5. The GPU server sends the response back to the server.
 
 #### 3. Power monitoring
 
